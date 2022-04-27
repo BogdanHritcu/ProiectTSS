@@ -1,0 +1,11 @@
+Tema 9: Unit Testing with Python
+• Prezentați facilitățile unui tool pentru testarea unitară în Python.
+• Ilustrați strategiile de generare de teste pe exemple proprii (create de echipă).
+
+Referințe:
+[1] PyUnit:
+https://realpython.com/python-testing/
+https://docs.python-guide.org/writing/tests/
+https://www.freecodecamp.org/news/an-introduction-to-testing-in-python/
+[2] Generator mutanți: https://pypi.org/project/MutPy/
+[3] Testare functionala, testare structurala, analiza mutanților, note de curs.
