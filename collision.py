@@ -44,7 +44,7 @@ def collision_cc(circle1, circle2):
     d = circle1.pos - circle2.pos
     r = circle1.r + circle2.r
     
-    return d.len2() < r**2
+    return d.len2() <= r**2
 
 def cast_coords(x, y):
     try:

@@ -1,0 +1,152 @@
+x = float, 0 <= x <= 100
+y = float, 0 <= y <= 100
+r = float, 1 <= r <= 20
+(x1, y1, r1, x2, y2, r2)
+
+a)
+
+Intrare:
+
+X1_1 = [0, 100]
+X1_2 = (-inf, 0)
+X1_3 = (100, inf)
+
+Y1_1 = [0, 100]
+Y1_2 = (-inf, 0)
+Y1_3 = (100, inf)
+
+R1_1 = [1, 20]
+R1_2 = (-inf, 1)
+R1_3 = (1, inf)
+
+X2_1 = [0, 100]
+X2_2 = (-inf, 0)
+X2_3 = (100, inf)
+
+Y2_1 = [0, 100]
+Y2_2 = (-inf, 0)
+Y2_3 = (100, inf)
+
+R2_1 = [1, 20]
+R2_2 = (-inf, 1)
+R2_3 = (1, inf)
+
+Iesire:
+C_1(x1, y1, r1, x2, y2, r2) = {(c1, c2) | c1 = Circle(x1, y1, r1), c2 = Circle(x2, y2, r2), c1 intersecteaza c2}
+C_2(x1, y1, r1, x2, y2, r2) = {(c1, c2) | c1 = Circle(x1, y1, r1), c2 = Circle(x2, y2, r2), c1 nu intersecteaza c2}
+
+Global:
+
+C_111_111_1 = {(x1, y1, r1, x2, y2, r2) | x1 in X1_1, y1 in Y1_1, r1 in R1_1,
+                                          x2 in X2_1, y2 in Y2_1, r2 in R2_1,
+                                          (Circle(x1, y1, r1), Circle(x2, y2, r2)) in C_1(x1, y1, r1, x2, y2, r2)}
+
+C_111_111_2 = {(x1, y1, r1, x2, y2, r2) | x1 in X1_1, y1 in Y1_1, r1 in R1_1,
+                                          x2 in X2_1, y2 in Y2_1, r2 in R2_1,
+                                          (Circle(x1, y1, r1), Circle(x2, y2, r2)) in C_2(x1, y1, r1, x2, y2, r2)}
+
+C_2xx_xxx_x = {(x1, y1, r1, x2, y2, r2) | x1 in X1_2}
+C_x2x_xxx_x = {(x1, y1, r1, x2, y2, r2) | y1 in Y1_2}
+C_xx2_xxx_x = {(x1, y1, r1, x2, y2, r2) | r1 in R1_2}
+C_xxx_2xx_x = {(x1, y1, r1, x2, y2, r2) | x2 in X2_2}
+C_xxx_x2x_x = {(x1, y1, r1, x2, y2, r2) | y2 in Y2_2}
+C_xxx_xx2_x = {(x1, y1, r1, x2, y2, r2) | r2 in R2_2}
+
+C_3xx_xxx_x = {(x1, y1, r1, x2, y2, r2) | x1 in X1_3}
+C_x3x_xxx_x = {(x1, y1, r1, x2, y2, r2) | y1 in Y1_3}
+C_xx3_xxx_x = {(x1, y1, r1, x2, y2, r2) | r1 in R1_3}
+C_xxx_3xx_x = {(x1, y1, r1, x2, y2, r2) | x2 in X2_3}
+C_xxx_x3x_x = {(x1, y1, r1, x2, y2, r2) | y2 in Y2_3}
+C_xxx_xx3_x = {(x1, y1, r1, x2, y2, r2) | r2 in R2_3}
+
+
+Date de test:
+
+c_111_111_1: (1, 1, 8, 9, 3, 2)
+c_111_111_2: (0, 3, 2, 7, 8, 3)
+
+c_2xx_xxx_x: (-2, 0, 0, 0, 0, 0)
+c_x2x_xxx_x: (0, -2, 0, 0, 0, 0)
+c_xx2_xxx_x: (0, 0, 0, 0, 0, 0)
+c_xxx_2xx_x: (0, 0, 0, -2, 0, 0)
+c_xxx_x2x_x: (0, 0, 0, 0, -2, 0)
+c_xxx_xx2_x: (0, 0, 0, 0, 0, 0)
+
+c_3xx_xxx_x: (101, 0, 0, 0, 0, 0)
+c_x3x_xxx_x: (0, 101, 0, 0, 0, 0)
+c_xx3_xxx_x: (0, 0, 21, 0, 0, 0)
+c_xxx_3xx_x: (0, 0, 0, 101, 0, 0)
+c_xxx_x3x_x: (0, 0, 0, 0, 101, 0)
+c_xxx_xx3_x: (0, 0, 0, 0, 0, 21)
+
+b)
+
+EPS = 1e-7
+
+X1_1: 0, 100
+X1_2: 0 - EPS
+X1_3: 100 + EPS
+
+Y1_1: 0, 100
+Y1_2: 0 - EPS
+Y1_3: 100 + EPS
+
+R1_1: 1, 20
+R1_2: 1 - EPS
+R1_3: 20 + EPS
+
+X2_1: 0, 100
+X2_2: 0 - EPS
+X2_3: 100 + EPS
+
+Y2_1: 0, 100
+Y2_2: 0 - EPS
+Y2_3: 100 + EPS
+
+R2_1: 1, 20
+R2_2: 1 - EPS
+R2_3: 20 + EPS
+
+C_1: cercurile coincid, centrele cercurilor se afla la distanta r1 + r2
+
+c_111_111_1: (0 + EPS, 1, 8, 9, 3, 2),
+             (1, 0 + EPS, 8, 9, 3, 2),
+             (9, 1, 1 + EPS, 9, 3, 2),
+             (1, 1, 8, 0 + EPS, 3, 2),
+             (1, 1, 8, 9, 0 + EPS, 2),
+             (1, 1, 8, 9, 3, 1 + EPS),
+             (100 - EPS, 1, 8, 92, 3, 10),
+             (1, 100 - EPS, 8, 9, 93, 10),
+             (1, 1, 20 - EPS, 9, 3, 2),
+             (95, 1, 8, 100 - EPS, 3, 2),
+             (1, 95, 8, 9, 100 - EPS, 2),
+             (1, 1, 8, 9, 3, 20 - EPS),
+             (1, 1, 8, 1, 1, 8),
+             (1, 1, 8, 11, 1, 2)
+
+c_111_111_2: (0 + EPS, 1, 8, 11, 3, 2),
+             (1, 0 + EPS, 8, 9, 13, 2),
+             (1, 1, 1 + EPS, 9, 3, 2),
+             (1, 1, 4, 0 + EPS, 8, 2),
+             (1, 1, 8, 12, 0 + EPS, 2),
+             (1, 1, 8, 12, 3, 1 + EPS),
+             (100 - EPS, 1, 8, 9, 3, 2),
+             (1, 100 - EPS, 8, 9, 3, 2),
+             (1, 1, 20 - EPS, 9, 33, 2),
+             (1, 1, 8, 100 - EPS, 3, 2),
+             (1, 1, 8, 9, 100 - EPS, 2),
+             (1, 1, 8, 9, 33, 20 - EPS)
+
+c_2xx_xxx_x: (0 - EPS, 0, 0, 0, 0, 0)
+c_x2x_xxx_x: (0, 0 - EPS, 0, 0, 0, 0)
+c_xx2_xxx_x: (0, 0, 1 - EPS, 0, 0, 0)
+c_xxx_2xx_x: (0, 0, 0, 0 - EPS, 0, 0)
+c_xxx_x2x_x: (0, 0, 0, 0, 0 - EPS, 0)
+c_xxx_xx2_x: (0, 0, 0, 0, 0, 1 - EPS)
+
+c_3xx_xxx_x: (100 + EPS, 0, 0, 0, 0, 0)
+c_x3x_xxx_x: (0, 100 + EPS, 0, 0, 0, 0)
+c_xx3_xxx_x: (0, 0, 20 + EPS, 0, 0, 0)
+c_xxx_3xx_x: (0, 0, 0, 100 + EPS, 0, 0)
+c_xxx_x3x_x: (0, 0, 0, 0, 100 + EPS, 0)
+c_xxx_xx3_x: (0, 0, 0, 0, 0, 20 + EPS)
