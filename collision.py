@@ -1,5 +1,10 @@
 from cmath import sqrt
 import re
+from sre_compile import isstring
+
+ERR_FORMAT = "Formatul este gresit"
+ERR_OUT_OF_BOUNDS = "Valoarea este gresita"
+
 
 def clamp(x, left, right):
     return max(min(x, right), left)
@@ -38,9 +43,12 @@ class Circle:
         self.pos = Vec(x, y)
         self.r = r
 
+    def __str__(self) -> str:
+        return f"{self.pos.x}, {self.pos.y}, {self.r}"
+
 def collision_cc(circle1, circle2):
     d = circle1.pos - circle2.pos
-    r = circle1.r - circle2.r
+    r = circle1.r + circle2.r
     
     return d.len2() < r**2
 
@@ -68,56 +76,62 @@ def testare_raza(test_raza):
     
     return raza
 
+def main(x1, y1, r1, x2, y2, r2):
+    area_min = 0
+    area_max = 100
 
-
-def main(cercuri):
-    area = Vec(100,100)
-
-    raza_min_max = Vec(0,20)
+    raza_min = 1
+    raza_max = 20
 
     lista_cercuri_coliziuni = []
-    lista_finala = []
-
-    if not isinstance(cercuri, list):
-        return None
     
-    for testcerc in cercuri:
-        if not isinstance(testcerc, list):
-            lista_finala.append("Invalid")
-            continue
+    coords_c1 = testare_coordonate(x1, y1)
+    coords_c2 = testare_coordonate(x2, y2)
+
+
+    if coords_c1 is None:
+        return ERR_FORMAT
+
+    if coords_c2 is None:
+        return ERR_FORMAT
+
+    if area_min <= coords_c1.x <= area_max and area_min <= coords_c1.y <= area_max:
+        pass
+    else:
+        return ERR_OUT_OF_BOUNDS
+
+    if area_min <= coords_c2.x <= area_max and area_min <= coords_c2.y <= area_max:
+        pass
+    else:
+        return ERR_OUT_OF_BOUNDS
         
-        coords = testare_coordonate(testcerc[0], testcerc[1])
 
-        if coords is None:
-            lista_finala.append("Invalid")
-            continue
+    raza_c1 = testare_raza(r1)
 
-        if 0 < coords.x < area.x and 0 < coords.y < area.y:
-            pass
-        else:
-            lista_finala.append("Invalid")
-            continue
+    raza_c2 = testare_raza(r2)
 
-        raza = testare_raza(testcerc[2])
+    if raza_c1 is None:
+        return ERR_FORMAT
+    
+    if raza_c2 is None:
+        return ERR_FORMAT
 
-        if raza is None:
-            lista_finala.append("Invalid")
-            continue
+    if not (raza_min <= raza_c1 <= raza_max):
+        return ERR_OUT_OF_BOUNDS
 
-        if raza_min_max.x > raza or raza_min_max.y < raza:
-            lista_finala.append("Invalid")
-            continue
-
-        cerc_cur = Circle(coords.x, coords.y ,raza)
-
-        lista = []
-
-        for index, cerc in enumerate(lista_cercuri_coliziuni):
-            if collision_cc(cerc, cerc_cur):
-                lista.append(index + 1)
+    if not (raza_min <= raza_c2 <= raza_max):
+        return ERR_OUT_OF_BOUNDS
         
-        lista_finala.append(lista)
 
-        lista_cercuri_coliziuni.append(cerc_cur)
+    cerc1 = Circle(coords_c1.x, coords_c1.y ,raza_c1)
+    cerc2 = Circle(coords_c2.x, coords_c2.y, raza_c2)
 
-    return lista_finala
+    lista_cercuri_coliziuni.append(cerc1)
+    lista_cercuri_coliziuni.append(cerc2)
+
+    for i, cerc_1 in enumerate(lista_cercuri_coliziuni):
+        for j, cerc_2 in enumerate(lista_cercuri_coliziuni):
+            if i != j and collision_cc(cerc_1, cerc_2):
+                return True
+    
+    return False
