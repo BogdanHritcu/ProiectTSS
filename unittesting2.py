@@ -65,7 +65,7 @@ collision_low_y2 = {
 }
 
 collision_low_r2 = {
-    "in" : (0, 0, 0, 0, 0, 1 - EPS),
+    "in" : (0, 0, 1, 0, 0, 1 - EPS),
     "out" : ERR_OUT_OF_BOUNDS
 }
 
@@ -94,7 +94,7 @@ collision_high_y2 = {
 }
 
 collision_high_r2 = {
-    "in" : (0, 0, 0, 0, 0, 20 + EPS),
+    "in" : (0, 0, 1, 0, 0, 20 + EPS),
     "out" : ERR_OUT_OF_BOUNDS
 }
 
@@ -297,5 +297,5 @@ class TestCollision(unittest.TestCase):
         result = main(x1, y1, r1, x2, y2, r2)
         self.assertEqual(result, collision_high_r2["out"])
 
-unittest.main()
-
+if __name__ == '__main__':
+    unittest.main()
