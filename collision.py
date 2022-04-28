@@ -1,13 +1,7 @@
 from cmath import sqrt
-import re
-from sre_compile import isstring
 
-ERR_FORMAT = "Formatul este gresit"
-ERR_OUT_OF_BOUNDS = "Valoarea este gresita"
-
-
-def clamp(x, left, right):
-    return max(min(x, right), left)
+ERR_FORMAT = "Invalid values"
+ERR_OUT_OF_BOUNDS = "Values out of bounds"
 
 class Vec:
     def __init__(self, x = None, y = None):
@@ -52,86 +46,75 @@ def collision_cc(circle1, circle2):
     
     return d.len2() < r**2
 
-
-
-def testare_coordonate(coordx, coordy):
+def cast_coords(x, y):
     try:
-        coords_x = float(coordx)
+        x = float(x)
     except:
         return None
 
-    
     try:
-        coords_y = float(coordy)
+        y = float(y)
     except:
         return None
     
-    return Vec(coords_x, coords_y)
+    return Vec(x, y)
 
-def testare_raza(test_raza):
+def cast_radius(r):
     try:
-        raza = float(test_raza)
+        r = float(r)
     except:
         return None
     
-    return raza
+    return r
 
 def main(x1, y1, r1, x2, y2, r2):
-    area_min = 0
-    area_max = 100
+    coords_min = 0
+    coords_max = 100
 
-    raza_min = 1
-    raza_max = 20
-
-    lista_cercuri_coliziuni = []
+    r_min = 1
+    r_max = 20
     
-    coords_c1 = testare_coordonate(x1, y1)
-    coords_c2 = testare_coordonate(x2, y2)
+    coords1 = cast_coords(x1, y1)
+    coords2 = cast_coords(x2, y2)
+    r1 = cast_radius(r1)
+    r2 = cast_radius(r2)
 
-
-    if coords_c1 is None:
+    if coords1 is None:
         return ERR_FORMAT
 
-    if coords_c2 is None:
+    if coords2 is None:
         return ERR_FORMAT
 
-    if area_min <= coords_c1.x <= area_max and area_min <= coords_c1.y <= area_max:
+    if coords_min <= coords1.x <= coords_max and coords_min <= coords1.y <= coords_max:
         pass
     else:
         return ERR_OUT_OF_BOUNDS
 
-    if area_min <= coords_c2.x <= area_max and area_min <= coords_c2.y <= area_max:
+    if coords_min <= coords2.x <= coords_max and coords_min <= coords2.y <= coords_max:
         pass
     else:
         return ERR_OUT_OF_BOUNDS
-        
 
-    raza_c1 = testare_raza(r1)
-
-    raza_c2 = testare_raza(r2)
-
-    if raza_c1 is None:
+    if r1 is None:
         return ERR_FORMAT
     
-    if raza_c2 is None:
+    if r2 is None:
         return ERR_FORMAT
 
-    if not (raza_min <= raza_c1 <= raza_max):
+    if not (r_min <= r1 <= r_max):
         return ERR_OUT_OF_BOUNDS
 
-    if not (raza_min <= raza_c2 <= raza_max):
+    if not (r_min <= r2 <= r_max):
         return ERR_OUT_OF_BOUNDS
-        
 
-    cerc1 = Circle(coords_c1.x, coords_c1.y ,raza_c1)
-    cerc2 = Circle(coords_c2.x, coords_c2.y, raza_c2)
+    circle1 = Circle(coords1.x, coords1.y, r1)
+    circle2 = Circle(coords2.x, coords2.y, r2)
 
-    lista_cercuri_coliziuni.append(cerc1)
-    lista_cercuri_coliziuni.append(cerc2)
+    circles = [circle1, circle2]
 
-    for i, cerc_1 in enumerate(lista_cercuri_coliziuni):
-        for j, cerc_2 in enumerate(lista_cercuri_coliziuni):
-            if i != j and collision_cc(cerc_1, cerc_2):
+    for i, c1 in enumerate(circles):
+        for j, c2 in enumerate(circles):
+            if i != j and collision_cc(c1, c2):
                 return True
-    
+
     return False
