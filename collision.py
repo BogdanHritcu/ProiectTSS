@@ -1,66 +1,45 @@
-from cmath import sqrt
+from vector import Vec, Circle, collision_cc
 
-ERR_OUT_OF_BOUNDS = "Values out of bounds"
+ERR_OUT_OF_BOUNDS = "Values out of bounds" # pragma: no mutate
 
+COORDS_MIN = 0
+COORDS_MAX = 100
 
-class Vec:
-    def __init__(self, x=None, y=None):
-        self.x = x
-        self.y = y
-
-    def len2(self):
-        return self.x * self.x + self.y * self.y
-
-    def __sub__(self, other):
-        return Vec(self.x - other.x, self.y - other.y)
-
-
-class Circle:
-    def __init__(self, x=1, y=1, r=1):
-        self.pos = Vec(x, y)
-        self.r = r
-
-
-def collision_cc(circle1, circle2):
-    d = circle1.pos - circle2.pos
-    r = circle1.r + circle2.r
-
-    return d.len2() <= r**2
+R_MIN = 1
+R_MAX = 20
 
 
 def main(x1, y1, r1, x2, y2, r2):
-    coords_min = 0
-    coords_max = 100
-
-    r_min = 1
-    r_max = 20
 
     coords1 = Vec(float(x1), float(y1))
     coords2 = Vec(float(x2), float(y2))
     r1 = float(r1)
     r2 = float(r2)
 
-    i = 0
-
-    while i > 20:
-        if i == 10:
-            break
-        i += 1
-
-    if coords_min <= coords1.x <= coords_max and coords_min <= coords1.y <= coords_max:
+    if COORDS_MIN <= coords1.x <= COORDS_MAX:
+        pass
+    else:
+        return ERR_OUT_OF_BOUNDS
+    
+    if COORDS_MIN <= coords1.y <= COORDS_MAX:
         pass
     else:
         return ERR_OUT_OF_BOUNDS
 
-    if coords_min <= coords2.x <= coords_max and coords_min <= coords2.y <= coords_max:
+    if COORDS_MIN <= coords2.x <= COORDS_MAX:
         pass
     else:
         return ERR_OUT_OF_BOUNDS
 
-    if not (r_min <= r1 <= r_max):
+    if COORDS_MIN <= coords2.y <= COORDS_MAX:
+        pass
+    else:
         return ERR_OUT_OF_BOUNDS
 
-    if not (r_min <= r2 <= r_max):
+    if not (R_MIN <= r1 <= R_MAX):
+        return ERR_OUT_OF_BOUNDS
+
+    if not (R_MIN <= r2 <= R_MAX):
         return ERR_OUT_OF_BOUNDS
 
     circle1 = Circle(coords1.x, coords1.y, r1)
