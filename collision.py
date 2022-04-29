@@ -8,7 +8,6 @@ COORDS_MAX = 100
 R_MIN = 1
 R_MAX = 20
 
-
 def main(x1, y1, r1, x2, y2, r2):
 
     coords1 = Vec(float(x1), float(y1))
